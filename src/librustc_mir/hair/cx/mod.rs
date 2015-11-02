@@ -101,6 +101,10 @@ impl<'a,'tcx:'a> Cx<'a, 'tcx> {
 
     #[allow(unused_variables)]
     pub fn needs_drop(&mut self, ty: Ty<'tcx>) -> bool {
+        // Rustabelle needs &mut drop locations
+        if let ty::TypeVariants::TyRef(_, ty::TypeAndMut { mutbl: hir::Mutability::MutMutable, ..}) = ty.sty {
+            return true
+        }
         self.tcx.type_needs_drop_given_env(ty, &self.infcx.parameter_environment)
     }
 
