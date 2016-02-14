@@ -99,6 +99,7 @@ impl<'a,'tcx:'a> Cx<'a, 'tcx> {
             .collect()
     }
 
+    #[allow(unused_variables)]
     pub fn needs_drop(&mut self, ty: Ty<'tcx>) -> bool {
         self.tcx.type_needs_drop_given_env(ty, &self.infcx.parameter_environment)
     }
